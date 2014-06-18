@@ -7,7 +7,7 @@ Install the following package below inside of your apps root folder.
 ```
 npm install cordova-uglify
 ```
-Go into the `node_modules/cordova-uglify` folder that is added and copy the `after_prepare` folder in it to your Cordova `hooks` folder in your apps root folder.
+Open the `node_modules/cordova-uglify` folder that is added and copy the `after_prepare` folder to your Cordova `hooks` folder in your apps root folder.
 
 ## Usage
 Once you have this hook installed it will compress your apps JavaScript and CSS when you run a `cordova prepare <platform>` or `cordova build <platform>` command.  This hook does not change your assets that live in the root www folder; it will uglify the assets that get output to the platforms folder after a `prepare` or `build`.  [Take a look at this line in the hook to add more files to be minified if you want](https://github.com/rossmartin/cordova-uglify/blob/master/after_prepare/uglify.js#l33).  By default the hook will uglify the JavaScript and CSS in the root `www/js` and `www/css` of your project.
