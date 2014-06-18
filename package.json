@@ -1,0 +1,20 @@
+{
+  "name": "cordova-uglify",
+  "version": "0.0.1",
+  "description": "Cordova hook that allows you to uglify or minify your apps JavaScript and CSS.",
+  "homepage": "https://github.com/rossmartin/cordova-uglify",
+  "keywords": [
+    "cordova",
+    "uglify",
+    "minify"
+  ],
+  "peerDependencies" : {
+    "yuicompressor" : "2.4.8"
+  },
+  "author": "Ross Martin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rossmartin/cordova-uglify/issues"
+  },
+  "readmeFilename": "README.md"
+}
