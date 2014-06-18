@@ -54,7 +54,7 @@ function compress(file) {
     var ext = path.extname(file);
     compressor.compress(file, {
         type: ext,
-        nomunge: false, // true to minify only (no obfuscate)
+        //nomunge: true, // uncomment to minify only (no obfuscate)
         charset: 'utf8'
     }, function(err, data, extra) {
         // overwrite the original unminified files
