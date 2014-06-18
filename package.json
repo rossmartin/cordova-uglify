@@ -6,7 +6,9 @@
   "keywords": [
     "cordova",
     "uglify",
-    "minify"
+    "minify",
+    "hook",
+    "hooks"
   ],
   "peerDependencies" : {
     "yuicompressor" : "2.4.8"
