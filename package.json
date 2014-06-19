@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/rossmartin/cordova-uglify/issues"
   },
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "scripts": {
+    "postinstall": "node scripts/install.js",
+    "postuninstall": "node scripts/uninstall.js"
+  }
 }
