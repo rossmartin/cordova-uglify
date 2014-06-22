@@ -2,19 +2,22 @@
 
 var fs = require('fs');
 var path = require('path');
-var compressor = require('yuicompressor');
+var UglifyJS = require("uglify-js");
+var CleanCSS = require('clean-css');
+var cssMinifier = new CleanCSS({
+    keepSpecialComments: 0 // remove all css comments ('*' to keep all, 1 to keep first comment only)
+});
 
-var isRelease = true; // i always minify for debug or release. see below on how to minify only for release
-/*
-var isRelease = (process.env.RELEASE && process.env.RELEASE === '1');
-// Turn this on only for release
-if (isRelease !== true) {
-    return;
-}
-*/
 var rootDir = process.argv[2];
 var platformPath = path.join(rootDir, 'platforms');
 var platform = process.env.CORDOVA_PLATFORMS;
+var cliCommand = process.env.CORDOVA_CMDLINE;
+var isRelease = true; // by default this hook is always enabled, see below on how to execute it only for release
+//var isRelease = (cliCommand.indexOf('--release') > -1); // comment the above line and uncomment this line to turn the hook on only for release
+if (!isRelease) {
+    return;
+}
+console.log('cordova-uglify will always run by default, read line 16 in this script to enable it only for release');
 
 switch(platform) {
     case 'android':
@@ -50,14 +53,25 @@ function processFiles(dir) {
 }
 
 function compress(file) {
-    console.log('compressing file: ' + file + '\r\n');
     var ext = path.extname(file);
-    compressor.compress(file, {
-        type: ext,
-        //nomunge: true, // uncomment to minify only (no obfuscate)
-        charset: 'utf8'
-    }, function(err, data, extra) {
-        // overwrite the original unminified files
-        fs.writeFileSync(file, data, 'utf8');
-    });
+    switch(ext) {
+        case '.js':
+            console.log('uglifying js file ' + file);
+            var result = UglifyJS.minify(file, {
+                compress: { // pass false here if you only want to minify (no obfuscate)
+                    drop_console: true // remove console.* statements (log, warn, etc.)
+                }
+            });
+            fs.writeFileSync(file, result.code, 'utf8'); // overwrite the original unminified file
+            break;
+        case '.css':
+            console.log('minifying css file ' + file);
+            var source = fs.readFileSync(file, 'utf8');
+            var result = cssMinifier.minify(source);
+            fs.writeFileSync(file, result, 'utf8'); // overwrite the original unminified file
+            break;
+        default:
+            console.log('encountered a ' + ext + ' file, not compressing it');
+            break;
+    }
 }
