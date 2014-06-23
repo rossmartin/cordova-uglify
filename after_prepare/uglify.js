@@ -31,9 +31,14 @@ switch(platform) {
         return;
 }
 
-processFiles(platformPath + '/js');
-processFiles(platformPath + '/css');
-// add other directories here if needed
+var foldersToProcess = [ // add other www folders in here if needed (ex. js/controllers)
+    'js',
+    'css'
+];
+
+foldersToProcess.forEach(function(folder) {
+    processFiles(platformPath + '/' + folder);
+});
 
 function processFiles(dir) {
     fs.readdir(dir, function(err, list) {
