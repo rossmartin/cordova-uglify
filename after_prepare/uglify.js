@@ -4,6 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var UglifyJS = require("uglify-js");
 var CleanCSS = require('clean-css');
+var ngAnnotate = require("ng-annotate");
 var cssMinifier = new CleanCSS({
     keepSpecialComments: 0 // remove all css comments ('*' to keep all, 1 to keep first comment only)
 });
@@ -62,10 +63,12 @@ function compress(file) {
     switch(ext) {
         case '.js':
             console.log('uglifying js file ' + file);
-            var result = UglifyJS.minify(file, {
+	    var res = ngAnnotate(String(fs.readFileSync(file)), {add: true});
+            var result = UglifyJS.minify(res.src, {
                 compress: { // pass false here if you only want to minify (no obfuscate)
                     drop_console: true // remove console.* statements (log, warn, etc.)
-                }
+                },
+		fromString: true
             });
             fs.writeFileSync(file, result.code, 'utf8'); // overwrite the original unminified file
             break;
