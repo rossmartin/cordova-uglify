@@ -63,12 +63,12 @@ function compress(file) {
     switch(ext) {
         case '.js':
             console.log('uglifying js file ' + file);
-	    var res = ngAnnotate(String(fs.readFileSync(file)), {add: true});
+	        var res = ngAnnotate(String(fs.readFileSync(file)), { add: true });
             var result = UglifyJS.minify(res.src, {
                 compress: { // pass false here if you only want to minify (no obfuscate)
                     drop_console: true // remove console.* statements (log, warn, etc.)
                 },
-		fromString: true
+                fromString: true
             });
             fs.writeFileSync(file, result.code, 'utf8'); // overwrite the original unminified file
             break;
