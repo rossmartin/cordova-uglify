@@ -6,6 +6,7 @@ var UglifyJS = require("uglify-js");
 var CleanCSS = require('clean-css');
 var ngAnnotate = require("ng-annotate");
 var cssMinifier = new CleanCSS({
+    advanced: false, // disable advanced optimizations - selector & property merging, reduction, etc.
     keepSpecialComments: 0 // remove all css comments ('*' to keep all, 1 to keep first comment only)
 });
 
