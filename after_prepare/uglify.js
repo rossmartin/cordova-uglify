@@ -34,11 +34,11 @@ switch (platform) {
     case 'android':
         platformPath = path.join(platformPath, platform, 'assets', 'www');
         break;
-    case 'ios':
+    case 'ios': case 'browser':
         platformPath = path.join(platformPath, platform, 'www');
         break;
     default:
-        console.log('this hook only supports android and ios currently');
+        console.log('this hook only supports android, ios, and browser currently');
         return;
 }
 
