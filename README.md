@@ -7,10 +7,32 @@ Install the following package below inside of your apps root folder.
 ```
 npm install cordova-uglify
 ```
-After install an `after_prepare` folder will be added to your `hooks` folder with the `uglify.js` script in it.
+After install an `after_prepare` folder will be added to your `hooks` folder with the `uglify.js` script in it.  A JSON config file (`uglify-config.json`) for the script will be added to the `hooks` folder.
 
 ## Usage
-Once you have this hook installed it will compress your apps JavaScript and CSS when you run a `cordova prepare <platform>` or `cordova build <platform>` command.  This hook does not change your assets that live in the root www folder; it will uglify the assets that get output to the platforms folder after a `prepare` or `build`.  [Take a look at this line in the hook to add more files to be minified if you want](https://github.com/rossmartin/cordova-uglify/blob/master/after_prepare/uglify.js#l34).  By default the hook will uglify the JavaScript and CSS in the `<platform>` `www/js` and `www/css` of your project.  You can configure the hook to uglify/minify only for a release build, [see here](https://github.com/rossmartin/cordova-uglify/blob/master/after_prepare/uglify.js#l20).  By default the hook will recursively search the `www/js` and `www/css` folders to minify assets within them.  This can be disabled by setting the `recursiveFolderSearch` variable to `false`.
+Once you have this hook installed it will compress your apps JavaScript and CSS when you run a `cordova prepare <platform>` or `cordova build <platform>` command.  This hook does not change your assets that live in the root www folder; it will uglify the assets that get output to the platforms folder after a `prepare` or `build`.  By default the hook will uglify the JavaScript and minify CSS files by recursively searching your projects www folder.  You can disable the recursive search by setting the `recursiveFolderSearch` to `false` in the JSON config file.  If you want to process files only when building/preparing for release include `--release` in your CLI command like this - `cordova prepare ios --release`.
+
+## Configuration
+```javascript
+{
+  "alwaysRun": false, // set to true to always uglify files
+  "recursiveFolderSearch": true, // process all JS and CSS files found in www
+  "foldersToProcess": [ // when recursiveFolderSearch is set to false only files in these directories will be processed
+    "js",
+    "css"
+  ],
+  "uglifyJsOptions": { // pass options to UglifyJS2 (you can include more than these below)
+    "compress": {
+      "drop_console": true
+    },
+    "fromString": true
+  },
+  "cleanCssOptions": { // pass options to CleanCSS (you can include more than these below)
+    "noAdvanced": true,
+    "keepSpecialComments": 0
+  }
+}
+```
 
 ## Requirements
 Out of the box this hook requires Cordova 3.3.1-0.4.2 and above but it can work with versions 3.0.0 thru 3.3.0 if you manually indicate the path for the platforms directories on Android and iOS.  This is becuase the `CORDOVA_PLATFORMS` environment variable was not added until version 3.3.1-0.4.2 ([see this post by Dan Moore](http://www.mooreds.com/wordpress/archives/1425)).
@@ -18,8 +40,6 @@ Out of the box this hook requires Cordova 3.3.1-0.4.2 and above but it can work 
 I came across a quirk on OSX and Linux where the `hooks` folder needs to have permissions modified.  Perform a `chmod -R 755 hooks` to resolve this issue.
 
 ## Future Development
-* External Config file
-    * Configuration of how JavaScript and CSS files are compressed - abstraction away from underlying code, preventing ruh-rohs.
 * HTML compression
 
 ## License
