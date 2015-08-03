@@ -61,15 +61,24 @@ function processFiles(dir) {
     fs.readdir(dir, function (err, list) {
         if (err) {
             console.log('processFiles err: ' + err);
+            
             return;
         }
+        
         list.forEach(function(file) {
             file = path.join(dir, file);
+        
             fs.stat(file, function(err, stat) {
+                if (stat.isFile()) {
+                    compress(file);
+                    
+                    return; 
+                }
+                
                 if (recursiveFolderSearch && stat.isDirectory()) {
                     processFiles(file);
-                } else{
-                    compress(file); 
+                    
+                    return;
                 }
             });
         });
