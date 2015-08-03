@@ -23,6 +23,7 @@ var recursiveFolderSearch = hookConfig.recursiveFolderSearch; // set this to fal
 var foldersToProcess      = hookConfig.foldersToProcess; // add other www folders in here if needed (ex. js/controllers)
 var cssMinifier           = new CleanCSS(hookConfig.cleanCssOptions);
 
+// Exit
 if (!isRelease) {
     return;
 }
@@ -30,6 +31,10 @@ if (!isRelease) {
 // Run uglifier
 run();
 
+/**
+ * Run compression for all specified platforms.
+ * @return {undefined}
+ */
 function run() {
     platforms.forEach(function(platform) {
         var wwwPath;
@@ -53,12 +58,22 @@ function run() {
     });
 }
 
+/**
+ * Processes defined folders.
+ * @param  {string} wwwPath - Path to www directory
+ * @return {undefined}
+ */
 function processFolders(wwwPath) {
     foldersToProcess.forEach(function(folder) {
         processFiles(path.join(wwwPath, folder));
     });
 }
 
+/**
+ * Processes files in directories.
+ * @param  {string} dir - Directory path
+ * @return {undefined}
+ */
 function processFiles(dir) {
     fs.readdir(dir, function (err, list) {
         if (err) {
@@ -87,6 +102,11 @@ function processFiles(dir) {
     });
 }
 
+/**
+ * Compresses file.
+ * @param  {string} file - File path
+ * @return {undefined}
+ */
 function compress(file) {
     var ext = path.extname(file),
         res,
