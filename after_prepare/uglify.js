@@ -88,20 +88,28 @@ function processFiles(dir) {
 }
 
 function compress(file) {
-    var ext = path.extname(file);
-    switch(ext) {
+    var ext = path.extname(file),
+        res,
+        source,
+        result;
+    
+    switch (ext) {
         case '.js':
             console.log('uglifying js file ' + file);
-            var res = ngAnnotate(String(fs.readFileSync(file)), { add: true });
-            var result = UglifyJS.minify(res.src, hookConfig.uglifyJsOptions);
+            
+            res = ngAnnotate(String(fs.readFileSync(file)), { add: true });
+            result = UglifyJS.minify(res.src, hookConfig.uglifyJsOptions);
             fs.writeFileSync(file, result.code, 'utf8'); // overwrite the original unminified file
             break;
+            
         case '.css':
             console.log('minifying css file ' + file);
-            var source = fs.readFileSync(file, 'utf8');
-            var result = cssMinifier.minify(source);
+            
+            source = fs.readFileSync(file, 'utf8');
+            result = cssMinifier.minify(source);
             fs.writeFileSync(file, result, 'utf8'); // overwrite the original unminified file
             break;
+            
         default:
             console.log('encountered a ' + ext + ' file, not compressing it');
             break;
