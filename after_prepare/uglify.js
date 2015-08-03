@@ -1,44 +1,61 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var path = require('path');
-var UglifyJS = require('uglify-js');
-var CleanCSS = require('clean-css');
+// Modules
+var fs         = require('fs');
+var path       = require('path');
+var UglifyJS   = require('uglify-js');
+var CleanCSS   = require('clean-css');
 var ngAnnotate = require('ng-annotate');
 
-var rootDir = process.argv[2];
+// Process
+var rootDir      = process.argv[2];
 var platformPath = path.join(rootDir, 'platforms');
-var platform = process.env.CORDOVA_PLATFORMS;
-var cliCommand = process.env.CORDOVA_CMDLINE;
+var platforms    = process.env.CORDOVA_PLATFORMS.split(',');
+var cliCommand   = process.env.CORDOVA_CMDLINE;
 
-// hook configuration
-var configFilePath = path.join(rootDir, 'hooks/uglify-config.json');
-var hookConfig = JSON.parse(fs.readFileSync(configFilePath));
-var isRelease = hookConfig.alwaysRun || (cliCommand.indexOf('--release') > -1);
+// Hook configuration
+var configFilePath        = path.join(rootDir, 'hooks/uglify-config.json');
+var hookConfig            = JSON.parse(fs.readFileSync(configFilePath));
+var isRelease             = hookConfig.alwaysRun || (cliCommand.indexOf('--release') > -1);
 var recursiveFolderSearch = hookConfig.recursiveFolderSearch; // set this to false to manually indicate the folders to process
-var foldersToProcess = hookConfig.foldersToProcess; // add other www folders in here if needed (ex. js/controllers)
-var cssMinifier = new CleanCSS(hookConfig.cleanCssOptions);
+var foldersToProcess      = hookConfig.foldersToProcess; // add other www folders in here if needed (ex. js/controllers)
+var cssMinifier           = new CleanCSS(hookConfig.cleanCssOptions);
 
 if (!isRelease) {
     return;
 }
 
-switch (platform) {
-    case 'android':
-        platformPath = path.join(platformPath, platform, 'assets', 'www');
-        break;
-    case 'ios': 
-    case 'browser':
-        platformPath = path.join(platformPath, platform, 'www');
-        break;
-    default:
-        console.log('this hook only supports android, ios, and browser currently');
-        return;
+// Run uglifier
+run();
+
+function run() {
+    platforms.forEach(function(platform) {
+        var wwwPath;
+        
+        switch (platform) {
+            case 'android':
+                wwwPath = path.join(platformPath, platform, 'assets', 'www');
+                break;
+                
+            case 'ios': 
+            case 'browser':
+                wwwPath = path.join(platformPath, platform, 'www');
+                break;
+                
+            default:
+                console.log('this hook only supports android, ios, and browser currently');
+                return;
+        }
+ 
+        processFolders(wwwPath);
+    });
 }
 
-foldersToProcess.forEach(function(folder) {
-    processFiles(path.join(platformPath, folder));
-});
+function processFolders(wwwPath) {
+    foldersToProcess.forEach(function(folder) {
+        processFiles(path.join(wwwPath, folder));
+    });
+}
 
 function processFiles(dir) {
     fs.readdir(dir, function (err, list) {
