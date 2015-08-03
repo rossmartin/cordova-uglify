@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/*jshint latedef:nofunc, node:true*/
+
 // Modules
 var fs         = require('fs');
 var path       = require('path');
