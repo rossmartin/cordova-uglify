@@ -1,6 +1,6 @@
 # cordova-uglify
 
-Cordova hook that allows you to uglify or minify your apps JavaScript and CSS.  It is using [UglifyJS2](https://github.com/mishoo/UglifyJS2) for JavaScript compression and [clean-css](https://github.com/GoalSmashers/clean-css) to minify CSS.
+Cordova hook that allows you to uglify or minify your apps JavaScript and CSS.  It is using [UglifyJS2](https://github.com/mishoo/UglifyJS2) for JavaScript compression and [clean-css](https://github.com/GoalSmashers/clean-css) to minify CSS.  The hook also supports compressing your apps images using [imagemin](https://github.com/imagemin/imagemin).
 
 ## Install
 Install the following package below inside of your apps root folder.
@@ -19,7 +19,8 @@ Once you have this hook installed it will compress your apps JavaScript and CSS 
   "recursiveFolderSearch": true, // process all JS and CSS files found in www
   "foldersToProcess": [ // when recursiveFolderSearch is set to false only files in these directories will be processed
     "js",
-    "css"
+    "css",
+    "img"
   ],
   "uglifyJsOptions": { // pass options to UglifyJS2 (you can include more than these below)
     "compress": {
@@ -30,6 +31,21 @@ Once you have this hook installed it will compress your apps JavaScript and CSS 
   "cleanCssOptions": { // pass options to CleanCSS (you can include more than these below)
     "noAdvanced": true,
     "keepSpecialComments": 0
+  },
+  "imageminOptions": { // pass options to imagemin (you can include more than these below)
+    "jpeg": {
+      "progressive": true,
+      "arithmetic": false
+    },
+    "png": {
+      "optimizationLevel": 2
+    },
+    "gif": {
+      "interlaced": false
+    },
+    "svg": {
+      "pretty": false
+    }
   }
 }
 ```
