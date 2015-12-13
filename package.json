@@ -1,6 +1,6 @@
 {
   "name": "cordova-uglify",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Cordova hook that allows you to uglify or minify your apps JavaScript and CSS.",
   "homepage": "https://github.com/rossmartin/cordova-uglify",
   "keywords": [
@@ -10,7 +10,7 @@
     "hook",
     "hooks"
   ],
-  "peerDependencies": {
+  "dependencies": {
     "uglify-js": "2.4.14",
     "ng-annotate": "0.15.4",
     "clean-css": "2.2.2",

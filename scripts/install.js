@@ -25,18 +25,18 @@
 //              /after_prepare
 //                  uglify.js
 
-var fs = require('fs')
-var path = require('path')
-var cwd = process.cwd(); //proj directory
-var scriptPath = __dirname //node_modules/cordova-uglify/scripts
+var fs = require('fs');
+var path = require('path');
+var cwd = process.cwd(); // $(project)/node_modules/cordova-uglify
+// __dirname = $(project)/node_modules/cordova-uglify/scripts
 
-var paths = [ path.join(cwd, '../../hooks'), path.join(cwd, '../../hooks/after_prepare') ];
+var paths = [path.join(cwd, '../../hooks'), path.join(cwd, '../../hooks/after_prepare')];
 
 for (var pathIndex in paths) {
-    if (!fs.existsSync(paths[pathIndex])) {
-        console.log('Creating directory: ', paths[pathIndex]);
-        fs.mkdirSync(paths[pathIndex]);
-    }   
+  if (!fs.existsSync(paths[pathIndex])) {
+    console.log('Creating directory: ', paths[pathIndex]);
+    fs.mkdirSync(paths[pathIndex]);
+  }
 }
 
 var uglifyScriptPath = path.join(cwd, 'after_prepare', 'uglify.js');
