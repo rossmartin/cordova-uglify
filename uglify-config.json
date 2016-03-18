@@ -4,13 +4,15 @@
     "foldersToProcess": [
         "js",
         "css",
-        "img"
+        "img",
+        "build"
     ],
     "uglifyJsOptions": {
         "compress": {
             "drop_console": true
         },
-        "fromString": true
+        "fromString": true,
+        "mangle": true
     },
     "cleanCssOptions": {
         "noAdvanced": true,
