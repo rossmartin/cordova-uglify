@@ -52,11 +52,12 @@ function run() {
       case 'ios':
       case 'browser':
       case 'wp8':
+      case 'windows': 
         wwwPath = path.join(platformPath, platform, 'www');
         break;
 
       default:
-        console.log('this hook only supports android, ios, wp8, and browser currently');
+        console.log('this hook only supports android, ios, wp8, windows, and browser currently');
         return;
     }
 
