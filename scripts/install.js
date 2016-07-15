@@ -27,6 +27,7 @@
 
 var fs = require('fs');
 var path = require('path');
+var shell = require('shelljs');
 var cwd = process.cwd(); // $(project)/node_modules/cordova-uglify
 // __dirname = $(project)/node_modules/cordova-uglify/scripts
 
@@ -50,3 +51,6 @@ fs.writeFileSync(uglifyAfterPreparePath, uglifyFile);
 
 var uglifyConfigFile = fs.readFileSync(path.join(__dirname, '../uglify-config.json'));
 fs.writeFileSync(path.join(paths[0], 'uglify-config.json'), uglifyConfigFile);
+
+console.log('Updating hooks directory to have execution permissions...');
+shell.chmod('-R', 755, paths[0]);

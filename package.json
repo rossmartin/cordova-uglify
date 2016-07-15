@@ -11,10 +11,11 @@
     "hooks"
   ],
   "dependencies": {
-    "uglify-js": "2.4.14",
-    "ng-annotate": "0.15.4",
     "clean-css": "3.4.8",
-    "imagemin": "3.2.0"
+    "imagemin": "3.2.0",
+    "ng-annotate": "0.15.4",
+    "shelljs": "^0.7.0",
+    "uglify-js": "2.4.14"
   },
   "author": "Ross Martin",
   "license": "MIT",
