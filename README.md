@@ -7,7 +7,7 @@ Install the following package below inside of your apps root folder.
 ```
 npm install cordova-uglify --legacy-bundling
 ```
-After install an `after_prepare` folder will be added to your `hooks` folder with the `uglify.js` script in it.  A JSON config file (`uglify-config.json`) for the script will be added to the `hooks` folder.
+After install an `after_prepare` folder will be added to your `hooks` folder with the `uglify.js` script in it.  A JSON config file (`uglify-config.json`) for the script will be added to the `hooks` folder.  The hook will automatically be given executable permission.
 
 ## Usage
 Once you have this hook installed it will compress your apps JavaScript and CSS when you run a `cordova prepare <platform>` or `cordova build <platform>` command.  This hook does not change your assets that live in the root www folder; it will uglify the assets that get output to the platforms folder after a `prepare` or `build`.  By default the hook will uglify the JavaScript and minify CSS files by recursively searching the folders provided in the `foldersToProcess` in the `uglify-config.json` (relative to your project root directory).  You can disable the recursive search by setting the `recursiveFolderSearch` to `false` in the JSON config file.  If you want to process files only when building/preparing for release include `--release` in your CLI command like this - `cordova prepare ios --release`.  Please see the note below about usage with Ionic 2.
@@ -59,8 +59,6 @@ Ionic 2 projects require a couple changes to the `uglify-config.json`.
 
 ## Requirements
 Out of the box this hook requires Cordova 3.3.1-0.4.2 and above but it can work with versions 3.0.0 thru 3.3.0 if you manually indicate the path for the platforms directories on Android and iOS.  This is because the `CORDOVA_PLATFORMS` environment variable was not added until version 3.3.1-0.4.2 ([see this post by Dan Moore](http://www.mooreds.com/wordpress/archives/1425)).
-
-I came across a quirk on OSX and Linux where the `hooks` folder needs to have permissions modified.  Perform a `chmod -R 755 hooks` to resolve this issue.
 
 ## Future Development
 * HTML compression
