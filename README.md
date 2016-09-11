@@ -52,6 +52,8 @@ Once you have this hook installed it will compress your apps JavaScript and CSS 
 }
 ```
 
+You can disable the image compression by removing the `imageminOptions` key in the `uglify-config.json`.
+
 ## Using cordova-uglify with Ionic 2
 Ionic 2 projects require a couple changes to the `uglify-config.json`.
 * Add `build` to the `foldersToProcess` property.
