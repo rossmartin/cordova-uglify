@@ -52,7 +52,7 @@ function run() {
       case 'ios':
       case 'browser':
       case 'wp8':
-      case 'windows': 
+      case 'windows':
         wwwPath = path.join(platformPath, platform, 'www');
         break;
 
@@ -141,26 +141,18 @@ function compress(file) {
 
     case '.jpeg':
     case '.jpg':
-      console.log('minifying image(JPEG format) ' + file);
-
       minifyImage.minify(file, minifyImage.JPEG);
       break;
 
     case '.png':
-      console.log('minifying image(PNG format) ' + file);
-
       minifyImage.minify(file, minifyImage.PNG);
       break;
 
     case '.gif':
-      console.log('minifying image(GIF format) ' + file);
-
       minifyImage.minify(file, minifyImage.GIF);
       break;
 
     case '.svg':
-      console.log('minifying image(SVG format) ' + file);
-
       minifyImage.minify(file, minifyImage.SVG);
       break;
 
@@ -192,6 +184,12 @@ function MinifyImage(config) {
    * {@link https://github.com/imagemin/imagemin imagemin}
    */
   function minify(file, format) {
+    if (!hookConfig.imageminOptions) {
+      return;
+    }
+
+    console.log('minifying image(' + format + ' format) ' + file);
+
     switch (format) {
       case that.JPEG:
         new Imagemin()
