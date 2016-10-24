@@ -17,20 +17,5 @@
     "cleanCssOptions": {
         "noAdvanced": true,
         "keepSpecialComments": 0
-    },
-    "imageminOptions": {
-        "jpeg": {
-            "progressive": true,
-            "arithmetic": false
-        },
-        "png": {
-            "optimizationLevel": 2
-        },
-        "gif": {
-            "interlaced": false
-        },
-        "svg": {
-            "pretty": false
-        }
     }
 }
