@@ -12,7 +12,7 @@
             "drop_console": true
         },
         "fromString": true,
-        "mangle": true
+        "mangle": false
     },
     "cleanCssOptions": {
         "noAdvanced": true,
