@@ -33,31 +33,17 @@ Once you have this hook installed it will compress your apps JavaScript and CSS 
   "cleanCssOptions": { // pass options to CleanCSS (you can include more than these below)
     "noAdvanced": true,
     "keepSpecialComments": 0
-  },
-  "imageminOptions": { // pass options to imagemin (you can include more than these below)
-    "jpeg": {
-      "progressive": true,
-      "arithmetic": false
-    },
-    "png": {
-      "optimizationLevel": 2
-    },
-    "gif": {
-      "interlaced": false
-    },
-    "svg": {
-      "pretty": false
-    }
   }
 }
 ```
-
-You can disable the image compression by removing the `imageminOptions` key in the `uglify-config.json`.
 
 ## Using cordova-uglify with Ionic 2
 Ionic 2 projects require a couple changes to the `uglify-config.json`.
 * Add `build` to the `foldersToProcess` property.
 * Set `mangle` to `false` in the `uglifyJsOptions`.
+
+## Where did image compression go?
+As of 0.2.6 I removed the imagemin package because the version that this hook depended on was causing issues in NPM 3 and higher.  There is a newer version of imagemin available and it has been made more modular by splitting the compression for each image type into its own package.  Image compression was outside the scope of what I wanted to do with this hook anyways so I may make a hook in the future that focuses just on that.  I don't plan to add image compression back to this hook so if you need it you'll want to use 0.2.5 or lower.
 
 ## Requirements
 Out of the box this hook requires Cordova 3.3.1-0.4.2 and above but it can work with versions 3.0.0 thru 3.3.0 if you manually indicate the path for the platforms directories on Android and iOS.  This is because the `CORDOVA_PLATFORMS` environment variable was not added until version 3.3.1-0.4.2 ([see this post by Dan Moore](http://www.mooreds.com/wordpress/archives/1425)).
