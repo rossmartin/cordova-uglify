@@ -5,7 +5,7 @@ Cordova hook that allows you to uglify or minify your apps JavaScript and CSS.  
 ## Install
 Install the following package below inside of your apps root folder.
 ```
-npm install cordova-uglify --legacy-bundling
+npm install cordova-uglify --save
 ```
 After install an `after_prepare` folder will be added to your `hooks` folder with the `uglify.js` script in it.  A JSON config file (`uglify-config.json`) for the script will be added to the `hooks` folder.  The hook will automatically be given executable permission.
 
