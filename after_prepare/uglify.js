@@ -5,8 +5,7 @@
 // Modules
 var fs = require('fs');
 var path = require('path');
-var cwd = process.cwd();
-var dependencyPath = path.join(cwd, 'node_modules', 'cordova-uglify', 'node_modules');
+var dependencyPath = path.join(process.cwd(), 'node_modules');
 // cordova-uglify module dependencies
 var UglifyJS = require(path.join(dependencyPath, 'uglify-js'));
 var CleanCSS = require(path.join(dependencyPath, 'clean-css'));
