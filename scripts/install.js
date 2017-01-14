@@ -53,4 +53,4 @@ var uglifyConfigFile = fs.readFileSync(path.join(__dirname, '../uglify-config.js
 fs.writeFileSync(path.join(paths[0], 'uglify-config.json'), uglifyConfigFile);
 
 console.log('Updating hooks directory to have execution permissions...');
-shell.chmod('-R', 'a+x', path.join(paths[1], 'uglify.js'));
+shell.chmod('a+x', path.join(paths[1], 'uglify.js'));
