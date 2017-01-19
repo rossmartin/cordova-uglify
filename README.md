@@ -44,6 +44,8 @@ Ionic 2 projects require a couple changes to the `uglify-config.json`.
 * Add `build` to the `foldersToProcess` property.
 * Set `mangle` to `false` in the `uglifyJsOptions`.
 
+Ionic 2 rc.0 introduced an npm package called [ionic-app-scripts](https://github.com/driftyco/ionic-app-scripts).  Ionic 2 includes this package to handle various things for you behind the scenes and it essentially does what cordova-uglify does and more.  It uses UglifyJS2 for minifying JavaScript and clean-css to compress CSS.  At this time `ionic-app-scripts` makes using `cordova-uglify` nearly obsolete - The reason it isn't a complete replacement yet is because it does not allow using all the options to UglifyJS2 via the customizable `ionic_uglifyjs.json` config file.  One particular option it doesn't allow is the `drop_console` option which is important if you use `console.log` and want to have UglifyJS2 remove these for you.  I plan to file an issue on the `ionic-app-scripts` GitHub and ask for it to support all possible UglifyJS2 options.
+
 ## Where did image compression go?
 As of 0.2.6 I removed the imagemin package because the version that this hook depended on was causing issues in NPM 3 and higher.  There is a newer version of imagemin available and it has been made more modular by splitting the compression for each image type into its own package.  Image compression was outside the scope of what I wanted to do with this hook anyways so I may make a hook in the future that focuses just on that.  I don't plan to add image compression back to this hook so if you need it you'll want to use 0.2.5 or lower.
 
