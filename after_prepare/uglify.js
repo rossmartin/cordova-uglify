@@ -58,7 +58,7 @@ function run() {
         return;
     }
 
-    processFolders(wwwPath);
+    processFolders(wwwPath, platform);
   });
 }
 
@@ -67,9 +67,9 @@ function run() {
  * @param  {string} wwwPath - Path to www directory
  * @return {undefined}
  */
-function processFolders(wwwPath) {
+function processFolders(wwwPath, platform) {
   foldersToProcess.forEach(function(folder) {
-    processFiles(path.join(wwwPath, folder));
+    processFiles(path.join(wwwPath, folder, platform));
   });
 }
 
@@ -78,7 +78,7 @@ function processFolders(wwwPath) {
  * @param  {string} dir - Directory path
  * @return {undefined}
  */
-function processFiles(dir) {
+function processFiles(dir,platform) {
   fs.readdir(dir, function(err, list) {
     if (err) {
       console.log('processFiles err: ' + err);
@@ -91,7 +91,7 @@ function processFiles(dir) {
 
       fs.stat(file, function(err, stat) {
         if (stat.isFile()) {
-          compress(file);
+          compress(file, platform);
 
           return;
         }
@@ -111,11 +111,12 @@ function processFiles(dir) {
  * @param  {string} file - File path
  * @return {undefined}
  */
-function compress(file) {
+function compress(file, platform) {
   var ext = path.extname(file),
     res,
     source,
-    result;
+    result,
+    bomHelper = "windows" === platform ? "\xEF\xBB\xBF" : "";
 
   switch (ext) {
     case '.js':
@@ -125,7 +126,7 @@ function compress(file) {
         add: true
       });
       result = UglifyJS.minify(res.src, hookConfig.uglifyJsOptions);
-      fs.writeFileSync(file, result.code, 'utf8'); // overwrite the original unminified file
+      fs.writeFileSync(file, bomHepler + result.code, 'utf8'); // overwrite the original unminified file
       break;
 
     case '.css':
@@ -133,7 +134,7 @@ function compress(file) {
 
       source = fs.readFileSync(file, 'utf8');
       result = cssMinifier.minify(source);
-      fs.writeFileSync(file, result.styles, 'utf8'); // overwrite the original unminified file
+      fs.writeFileSync(file, bomHepler + result.styles, 'utf8'); // overwrite the original unminified file
       break;
 
     default:
