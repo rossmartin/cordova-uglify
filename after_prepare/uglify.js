@@ -58,7 +58,7 @@ function run() {
         return;
     }
 
-    processFolders(wwwPath, platform);
+    processFolders(wwwPath);
   });
 }
 
@@ -67,9 +67,9 @@ function run() {
  * @param  {string} wwwPath - Path to www directory
  * @return {undefined}
  */
-function processFolders(wwwPath, platform) {
+function processFolders(wwwPath) {
   foldersToProcess.forEach(function(folder) {
-    processFiles(path.join(wwwPath, folder, platform));
+    processFiles(path.join(wwwPath, folder));
   });
 }
 
@@ -78,7 +78,7 @@ function processFolders(wwwPath, platform) {
  * @param  {string} dir - Directory path
  * @return {undefined}
  */
-function processFiles(dir,platform) {
+function processFiles(dir) {
   fs.readdir(dir, function(err, list) {
     if (err) {
       console.log('processFiles err: ' + err);
@@ -91,7 +91,7 @@ function processFiles(dir,platform) {
 
       fs.stat(file, function(err, stat) {
         if (stat.isFile()) {
-          compress(file, platform);
+          compress(file);
 
           return;
         }
@@ -111,22 +111,21 @@ function processFiles(dir,platform) {
  * @param  {string} file - File path
  * @return {undefined}
  */
-function compress(file, platform) {
+function compress(file) {
   var ext = path.extname(file),
     res,
     source,
-    result,
-    bomHelper = "windows" === platform ? "\xEF\xBB\xBF" : "";
+    result;
 
   switch (ext) {
     case '.js':
       console.log('uglifying js file ' + file);
 
-      res = ngAnnotate(String(fs.readFileSync(file)), {
+      res = ngAnnotate(String(fs.readFileSync(file, 'utf8')), {
         add: true
       });
       result = UglifyJS.minify(res.src, hookConfig.uglifyJsOptions);
-      fs.writeFileSync(file, bomHepler + result.code, 'utf8'); // overwrite the original unminified file
+      fs.writeFileSync(file, result.code, 'utf8'); // overwrite the original unminified file
       break;
 
     case '.css':
@@ -134,7 +133,7 @@ function compress(file, platform) {
 
       source = fs.readFileSync(file, 'utf8');
       result = cssMinifier.minify(source);
-      fs.writeFileSync(file, bomHepler + result.styles, 'utf8'); // overwrite the original unminified file
+      fs.writeFileSync(file, result.styles, 'utf8'); // overwrite the original unminified file
       break;
 
     default:

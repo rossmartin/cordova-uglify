@@ -11,8 +11,10 @@
         "compress": {
             "drop_console": true
         },
-        "fromString": true,
-        "mangle": false
+        "mangle": false,
+        "output": {
+            "code": true
+        }
     },
     "cleanCssOptions": {
         "noAdvanced": true,
