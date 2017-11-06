@@ -17,7 +17,6 @@
         }
     },
     "cleanCssOptions": {
-        "noAdvanced": true,
-        "keepSpecialComments": 0
+        "specialComments": "all"
     }
 }
