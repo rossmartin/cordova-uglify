@@ -29,12 +29,13 @@ Once you have this hook installed it will compress your apps JavaScript and CSS 
     "compress": {
       "drop_console": true
     },
-    "fromString": true,
-    "mangle": true // set this to false for Ionic 2 projects
+    "mangle": false,
+    "output": {
+      "code": true
+    }
   },
   "cleanCssOptions": { // pass options to CleanCSS (you can include more than these below)
-    "noAdvanced": true,
-    "keepSpecialComments": 0
+    "specialComments": "all"
   }
 }
 ```
