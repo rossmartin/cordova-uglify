@@ -3,6 +3,7 @@
 Cordova hook that allows you to uglify or minify your apps JavaScript and CSS.  It is using [UglifyJS2 (uglify-es for ES6+)](https://github.com/mishoo/UglifyJS2/tree/harmony) for JavaScript compression and [clean-css](https://github.com/GoalSmashers/clean-css) to minify CSS.  [`uglify-es`](https://github.com/mishoo/UglifyJS2/tree/harmony) has some additional options available so refer to the docs for it if you wish to add additional compression options to the default config shown below.
 
 [![NPM](https://nodei.co/npm/cordova-uglify.png?downloads=true&stars=true)](https://nodei.co/npm/cordova-uglify/)
+
 [![npm](https://img.shields.io/npm/dw/localeval.svg)](https://github.com/rossmartin/cordova-uglify)
 [![npm](https://img.shields.io/npm/dm/localeval.svg)](https://github.com/rossmartin/cordova-uglify)
 
