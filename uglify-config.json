@@ -4,7 +4,6 @@
     "foldersToProcess": [
         "js",
         "css",
-        "img",
         "build"
     ],
     "uglifyJsOptions": {
