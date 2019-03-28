@@ -4,7 +4,9 @@
     "foldersToProcess": [
         "js",
         "css",
-        "build"
+        "build",
+		"cordova-js-src",
+		"plugins"
     ],
     "uglifyJsOptions": {
         "compress": {

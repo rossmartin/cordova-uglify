@@ -28,7 +28,9 @@ Once you have this hook installed it will compress your apps JavaScript and CSS 
   "foldersToProcess": [ // when recursiveFolderSearch is set to false only files in these directories will be processed
     "js",
     "css",
-    "build" // this is needed for Ionic 2 projects
+    "build", // this is needed for Ionic 2 projects
+	"cordova-js-src",
+	"plugins"
   ],
   "uglifyJsOptions": { // pass options to UglifyJS2 (you can include more than these below)
     "compress": {
