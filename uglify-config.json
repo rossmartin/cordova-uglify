@@ -6,7 +6,9 @@
         "css",
         "build",
 		"cordova-js-src",
-		"plugins"
+		"plugins",
+		"cordova.js",
+		"cordova_plugins.js"
     ],
     "uglifyJsOptions": {
         "compress": {

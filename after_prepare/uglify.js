@@ -82,12 +82,19 @@ function processFolders(wwwPath) {
  * @return {undefined}
  */
 function processFiles(dir) {
+	
   fs.readdir(dir, function(err, list) {
-    if (err) {
-      console.log('processFiles err: ' + err);
+	if (err) {
+		fs.stat(dir, function(err, stat) {
+			if (!err && stat.isFile()) {
+				compress(dir);
+			} else {
+				console.log('processFiles err: ' + err);
+			}
+		});
 
-      return;
-    }
+		return;
+	}
 
     list.forEach(function(file) {
       file = path.join(dir, file);
@@ -124,7 +131,7 @@ function compress(file) {
     case '.js':
       console.log('uglifying js file ' + file);
 
-      res = ngAnnotate(String(fs.readFileSync(file, 'utf8')), {
+      res = ngAnnotate(String(fs.readFileSync(file)), {
         add: true
       });
       result = UglifyJS.minify(res.src, hookConfig.uglifyJsOptions);

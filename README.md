@@ -30,7 +30,9 @@ Once you have this hook installed it will compress your apps JavaScript and CSS 
     "css",
     "build", // this is needed for Ionic 2 projects
 	"cordova-js-src",
-	"plugins"
+	"plugins",
+	"cordova.js",
+	"cordova_plugins.js"
   ],
   "uglifyJsOptions": { // pass options to UglifyJS2 (you can include more than these below)
     "compress": {
