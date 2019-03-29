@@ -131,7 +131,7 @@ function compress(file) {
     case '.js':
       console.log('uglifying js file ' + file);
 
-      res = ngAnnotate(String(fs.readFileSync(file)), {
+      res = ngAnnotate(String(fs.readFileSync(file, 'utf8')), {
         add: true
       });
       result = UglifyJS.minify(res.src, hookConfig.uglifyJsOptions);
