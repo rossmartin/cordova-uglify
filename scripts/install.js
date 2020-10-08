@@ -27,7 +27,6 @@
 
 var fs = require('fs');
 var path = require('path');
-var shell = require('shelljs');
 var cwd = process.cwd(); // $(project)/node_modules/cordova-uglify
 // __dirname = $(project)/node_modules/cordova-uglify/scripts
 
@@ -70,7 +69,3 @@ fs.readFile(configFilePath, function (err, data) {
         });
     }
 }); // <widget>
-
-// node module - no longer requires execute permissions
-//console.log('Updating hooks directory to have execution permissions...');
-//shell.chmod('a+x', path.join(paths[1], 'uglify.js'));
