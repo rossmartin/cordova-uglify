@@ -16,8 +16,8 @@ var uglifyJsPath = path.join(
 );
 var configFilePath = path.join(cwd, '../../', 'hooks', 'uglify-config.json');
 
-fs.unlink(uglifyJsPath);
-fs.unlink(configFilePath);
+fs.unlinkSync(uglifyJsPath);
+fs.unlinkSync(configFilePath);
 
 console.log('removed ' + uglifyJsPath + ' and ' + configFilePath);
 
