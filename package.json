@@ -13,8 +13,8 @@
   "dependencies": {
     "clean-css": "4.2.1",
     "ng-annotate": "0.15.4",
-    "shelljs": "^0.7.0",
-    "uglify-js": "3.3.16"
+    "uglify-js": "3.3.16",
+    "xml2js": "0.4.23"
   },
   "author": "Ross Martin",
   "license": "MIT",
