@@ -1,21 +1,17 @@
 {
-    "alwaysRun": false,
-    "recursiveFolderSearch": true,
-    "foldersToProcess": [
-        "js",
-        "css",
-        "build"
-    ],
-    "uglifyJsOptions": {
-        "compress": {
-            "drop_console": true
-        },
-        "mangle": false,
-        "output": {
-            "code": true
-        }
+  "alwaysRun": false,
+  "recursiveFolderSearch": true,
+  "foldersToProcess": ["js", "css", "build"],
+  "uglifyJsOptions": {
+    "compress": {
+      "drop_console": true
     },
-    "cleanCssOptions": {
-        "specialComments": "all"
+    "mangle": false,
+    "output": {
+      "code": true
     }
+  },
+  "cleanCssOptions": {
+    "specialComments": "all"
+  }
 }
