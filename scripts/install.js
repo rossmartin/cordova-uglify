@@ -27,7 +27,6 @@
 
 var fs = require('fs');
 var path = require('path');
-var shell = require('shelljs');
 var cwd = process.cwd(); // $(project)/node_modules/cordova-uglify
 // __dirname = $(project)/node_modules/cordova-uglify/scripts
 
@@ -52,5 +51,21 @@ fs.writeFileSync(uglifyAfterPreparePath, uglifyFile);
 var uglifyConfigFile = fs.readFileSync(path.join(__dirname, '../uglify-config.json'));
 fs.writeFileSync(path.join(paths[0], 'uglify-config.json'), uglifyConfigFile);
 
-console.log('Updating hooks directory to have execution permissions...');
-shell.chmod('a+x', path.join(paths[1], 'uglify.js'));
+var configFilePath = path.join(cwd, "../../", "config.xml"); // top-level config.xml
+fs.readFile(configFilePath, function (err, data) {
+    var hookNode = "\t<hook src=\"hooks/after_prepare/uglify.js\" type=\"after_prepare\" />\r\n";
+    if (err) {
+        console.log(err);
+    } else {
+        var closingNodeIdx = data.indexOf("</widget>"); // insert just before the closing node
+        if (closingNodeIdx === -1) {
+            console.log("widget node not found -- is this a config.xml file?");
+            return;
+        }
+        fs.writefile(configFilePath, (data.slice(0, closingNodeIdx) + hookNode + data.slice(closingNodeIdx)), function (err) {
+            if (err) {
+                console.log(err);
+            }
+        });
+    }
+}); // <widget>
